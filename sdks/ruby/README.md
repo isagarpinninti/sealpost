@@ -1,5 +1,7 @@
 # sealpost (Ruby)
 
+[![Gem](https://img.shields.io/gem/v/sealpost)](https://rubygems.org/gems/sealpost)
+
 Zero-dependency Ruby client for the self-hosted [Sealpost](https://github.com/isagarpinninti/sealpost) email API. Ruby 2.6+, standard library only.
 
 ```bash

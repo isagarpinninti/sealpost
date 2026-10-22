@@ -1,0 +1,60 @@
+name: Release SDKs
+# The npm packages are published by release.yml. The Python and Ruby SDKs are versioned on their own:
+#   git tag python-v0.1.1 && git push origin python-v0.1.1     (pyproject.toml must say 0.1.1)
+#   git tag ruby-v0.1.1   && git push origin ruby-v0.1.1       (sealpost.gemspec must say 0.1.1)
+on:
+  push:
+    tags: ["python-v*", "ruby-v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    if: startsWith(github.ref_name, 'python-v')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: sdks/python
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Tag must match pyproject.toml
+        run: |
+          version=$(python -c "import tomllib;print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")
+          [ "python-v$version" = "$GITHUB_REF_NAME" ] || { echo "Tag $GITHUB_REF_NAME does not match version $version"; exit 1; }
+      - run: PYTHONPATH=src python -m unittest discover -s tests
+      - run: python -m pip install build twine
+      - run: python -m build
+      - run: python -m twine check dist/*
+      - name: Upload to PyPI
+        run: python -m twine upload --skip-existing dist/*
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+
+  ruby:
+    if: startsWith(github.ref_name, 'ruby-v')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: sdks/ruby
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+      - name: Tag must match the gemspec
+        run: |
+          version=$(ruby -e 'puts Gem::Specification.load("sealpost.gemspec").version')
+          [ "ruby-v$version" = "$GITHUB_REF_NAME" ] || { echo "Tag $GITHUB_REF_NAME does not match version $version"; exit 1; }
+      - run: ruby test/sealpost_test.rb
+      - run: gem build sealpost.gemspec
+      - name: Push to RubyGems
+        run: gem push sealpost-*.gem
+        env:
+          GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}

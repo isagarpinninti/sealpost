@@ -8,6 +8,8 @@ Design an email visually, run it through an eight-check deliverability gate, sig
 
 [![CI](https://github.com/isagarpinninti/sealpost/actions/workflows/ci.yml/badge.svg)](https://github.com/isagarpinninti/sealpost/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/@sealpost/cli?label=%40sealpost%2Fcli)](https://www.npmjs.com/package/@sealpost/cli)
+[![PyPI](https://img.shields.io/pypi/v/sealpost?label=PyPI)](https://pypi.org/project/sealpost/)
+[![Gem](https://img.shields.io/gem/v/sealpost?label=RubyGems)](https://rubygems.org/gems/sealpost)
 [![license](https://img.shields.io/badge/license-MIT-black)](LICENSE)
 
 </div>

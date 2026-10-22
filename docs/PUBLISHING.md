@@ -42,11 +42,39 @@ npm view @sealpost/core dist.tarball
 ## Ruby and PHP SDKs
 
 ```bash
-# Ruby (RubyGems): create an API key at rubygems.org first
-cd sdks/ruby && gem build sealpost.gemspec && gem push sealpost-0.1.0.gem
+# Ruby (RubyGems): `gem signin` is retired. Create an API key with only the "Push rubygem" scope at
+# rubygems.org/profile/api_keys, then either add it to ~/.gem/credentials or push through the web API:
+cd sdks/ruby && gem build sealpost.gemspec
+read -rs RG_KEY
+curl -sS -X POST -H "Authorization: $RG_KEY" -H "OTP: <authenticator code>" -H "Content-Type: application/octet-stream" --data-binary @sealpost-0.1.0.gem https://rubygems.org/api/v1/gems
+unset RG_KEY
 ```
 
 PHP is published by Packagist from the repository: submit `https://github.com/isagarpinninti/sealpost` at packagist.org and point it at `sdks/php` (a monorepo subdirectory needs a split repository or a `composer.json` at the root of a tag; the common approach is a read-only split repo such as `isagarpinninti/sealpost-php`).
+
+## Automatic SDK releases (Python and Ruby)
+
+`.github/workflows/release-sdks.yml` publishes the Python and Ruby SDKs when you push a tag. It runs the SDK's tests, checks that the tag matches the version in `pyproject.toml` or `sealpost.gemspec`, and uploads.
+
+One-time setup, with the keys stored as repo secrets (the command prompts for the value):
+
+```bash
+gh secret set PYPI_API_TOKEN --repo isagarpinninti/sealpost      # PyPI token scoped to the sealpost project
+gh secret set RUBYGEMS_API_KEY --repo isagarpinninti/sealpost    # "Push rubygem" scope, MFA for the key switched off
+```
+
+A RubyGems key that requires MFA on every API call cannot publish from CI, because a CI job cannot type a one-time code. Create the CI key without that option and limit it to the `sealpost` gem.
+
+Each release:
+
+```bash
+# bump the version in sdks/python/pyproject.toml, then
+git tag python-v0.1.1 && git push origin python-v0.1.1
+# bump the version in sdks/ruby/sealpost.gemspec, then
+git tag ruby-v0.1.1 && git push origin ruby-v0.1.1
+```
+
+PyPI and RubyGems never accept the same version twice, so a re-run of an already published tag is skipped (PyPI) or refused (RubyGems).
 
 ## Python and Go SDKs
 

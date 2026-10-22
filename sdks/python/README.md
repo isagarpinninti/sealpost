@@ -1,5 +1,7 @@
 # sealpost (Python)
 
+[![PyPI](https://img.shields.io/pypi/v/sealpost)](https://pypi.org/project/sealpost/)
+
 Zero-dependency Python client for the self-hosted [Sealpost](https://github.com/isagarpinninti/sealpost) email API. Python 3.8+, standard library only.
 
 ```bash
