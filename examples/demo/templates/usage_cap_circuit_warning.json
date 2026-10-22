@@ -1,0 +1,116 @@
+{
+  "id": "usage_cap_circuit_warning",
+  "name": "Usage Cap Circuit Warning",
+  "version": "1.0.0",
+  "category": "Transactional",
+  "description": "An API or escrow quota warning at 85% utilization with an auto-negotiate link.",
+  "subject": "{{accountName}} has used {{utilizationPct}}% of its API cap",
+  "preheader": "{{usedUnits}} of {{capUnits}} units used. Raise the cap before calls are blocked.",
+  "variables": [
+    {
+      "key": "accountName",
+      "label": "Account",
+      "type": "string",
+      "required": true,
+      "sampleValue": "Acme Corp"
+    },
+    {
+      "key": "utilizationPct",
+      "label": "Utilization (%)",
+      "type": "number",
+      "required": true,
+      "sampleValue": 85
+    },
+    {
+      "key": "usedUnits",
+      "label": "Units used",
+      "type": "number",
+      "required": true,
+      "sampleValue": 850000
+    },
+    {
+      "key": "capUnits",
+      "label": "Cap (units)",
+      "type": "number",
+      "required": true,
+      "sampleValue": 1000000
+    },
+    {
+      "key": "resetDate",
+      "label": "Reset date",
+      "type": "string",
+      "required": false,
+      "defaultValue": "the 1st of next month",
+      "sampleValue": "Nov 1, 2026"
+    },
+    {
+      "key": "negotiateUrl",
+      "label": "Auto-negotiate link",
+      "type": "url",
+      "required": true,
+      "sampleValue": "https://app.example.com/billing/cap"
+    }
+  ],
+  "theme": {
+    "accentColor": "#0f172a",
+    "canvasColor": "#f1f5f9",
+    "cardColor": "#ffffff",
+    "fontFamily": "Helvetica, Arial, sans-serif"
+  },
+  "blocks": [
+    {
+      "id": "header",
+      "type": "header",
+      "brandName": "Acme Platform",
+      "badgeText": "Secure",
+      "subtitle": "Usage alert"
+    },
+    {
+      "id": "h1",
+      "type": "heading",
+      "text": "{{utilizationPct}}% of your cap is used"
+    },
+    {
+      "id": "warn",
+      "type": "callout",
+      "tone": "warn",
+      "title": "Circuit breaker approaching",
+      "text": "Calls will be blocked at 100% of the cap. The cap resets on {{resetDate}}."
+    },
+    {
+      "id": "kv",
+      "type": "key_value",
+      "rows": [
+        {
+          "label": "Account",
+          "valueTemplate": "{{accountName}}"
+        },
+        {
+          "label": "Used",
+          "valueTemplate": "{{usedUnits}} units"
+        },
+        {
+          "label": "Cap",
+          "valueTemplate": "{{capUnits}} units"
+        }
+      ]
+    },
+    {
+      "id": "btn",
+      "type": "button",
+      "label": "Auto-negotiate a higher cap",
+      "urlTemplate": "{{negotiateUrl}}",
+      "style": "amber"
+    },
+    {
+      "id": "div",
+      "type": "divider"
+    },
+    {
+      "id": "footer",
+      "type": "footer",
+      "companyAddress": "Acme Platform, Inc.\n500 Market Street, San Francisco, CA 94105",
+      "unsubscribeText": "Manage email preferences"
+    }
+  ]
+}

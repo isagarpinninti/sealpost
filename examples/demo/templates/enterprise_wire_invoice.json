@@ -1,0 +1,139 @@
+{
+  "id": "enterprise_wire_invoice",
+  "name": "Enterprise Wire Invoice",
+  "version": "1.0.0",
+  "category": "Billing",
+  "description": "An itemized B2B invoice with a wire clearing reference and a PDF receipt button.",
+  "subject": "Invoice {{invoiceNumber}}: {{total}} due {{dueDate}}",
+  "preheader": "Wire instructions and your PDF receipt for invoice {{invoiceNumber}}.",
+  "variables": [
+    {
+      "key": "customerName",
+      "label": "Customer",
+      "type": "string",
+      "required": true,
+      "sampleValue": "Globex Supplies"
+    },
+    {
+      "key": "invoiceNumber",
+      "label": "Invoice number",
+      "type": "string",
+      "required": true,
+      "sampleValue": "INV-2291"
+    },
+    {
+      "key": "platformFee",
+      "label": "Platform fee",
+      "type": "currency",
+      "required": true,
+      "sampleValue": 48000
+    },
+    {
+      "key": "supportFee",
+      "label": "Premium support",
+      "type": "currency",
+      "required": true,
+      "sampleValue": 14000
+    },
+    {
+      "key": "total",
+      "label": "Total due",
+      "type": "currency",
+      "required": true,
+      "sampleValue": 62000
+    },
+    {
+      "key": "dueDate",
+      "label": "Due date",
+      "type": "string",
+      "required": true,
+      "sampleValue": "Nov 14, 2026"
+    },
+    {
+      "key": "wireReference",
+      "label": "Wire reference",
+      "type": "string",
+      "required": true,
+      "sampleValue": "WIRE-5530-GLX"
+    },
+    {
+      "key": "pdfUrl",
+      "label": "PDF receipt link",
+      "type": "url",
+      "required": true,
+      "sampleValue": "https://billing.example.com/invoices/INV-2291.pdf"
+    }
+  ],
+  "theme": {
+    "accentColor": "#0f172a",
+    "canvasColor": "#f1f5f9",
+    "cardColor": "#ffffff",
+    "fontFamily": "Helvetica, Arial, sans-serif"
+  },
+  "blocks": [
+    {
+      "id": "header",
+      "type": "header",
+      "brandName": "Acme Platform",
+      "badgeText": "Secure",
+      "subtitle": "Billing"
+    },
+    {
+      "id": "h1",
+      "type": "heading",
+      "text": "Invoice {{invoiceNumber}}"
+    },
+    {
+      "id": "p1",
+      "type": "paragraph",
+      "text": "Hello {{customerName}}, here is your invoice. Please pay by wire transfer before {{dueDate}}."
+    },
+    {
+      "id": "items",
+      "type": "line_items",
+      "items": [
+        {
+          "description": "Platform licence, Enterprise (annual)",
+          "amountTemplate": "{{platformFee}}"
+        },
+        {
+          "description": "Premium support (annual)",
+          "amountTemplate": "{{supportFee}}"
+        }
+      ],
+      "totalLabel": "Total due",
+      "totalTemplate": "{{total}}"
+    },
+    {
+      "id": "kv",
+      "type": "key_value",
+      "rows": [
+        {
+          "label": "Wire reference",
+          "valueTemplate": "{{wireReference}}"
+        },
+        {
+          "label": "Due date",
+          "valueTemplate": "{{dueDate}}"
+        }
+      ]
+    },
+    {
+      "id": "btn",
+      "type": "button",
+      "label": "Download PDF receipt",
+      "urlTemplate": "{{pdfUrl}}",
+      "style": "amber"
+    },
+    {
+      "id": "div",
+      "type": "divider"
+    },
+    {
+      "id": "footer",
+      "type": "footer",
+      "companyAddress": "Acme Platform, Inc.\n500 Market Street, San Francisco, CA 94105",
+      "unsubscribeText": "Manage email preferences"
+    }
+  ]
+}

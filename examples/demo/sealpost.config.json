@@ -1,0 +1,21 @@
+{
+  "name": "sealpost-demo",
+  "domain": {
+    "domain": "mail.example.com",
+    "fromName": "Acme Platform",
+    "fromEmail": "hello@mail.example.com",
+    "replyTo": "support@mail.example.com",
+    "dkimSelector": "sealpost",
+    "dmarcPolicy": "none",
+    "unsubscribeUrl": "https://app.example.com/unsubscribe",
+    "trackingBaseUrl": "http://127.0.0.1:4320"
+  },
+  "transport": "sink",
+  "mailboxes": [],
+  "auth": {
+    "keys": {}
+  },
+  "webhookUrl": "",
+  "allowPrivateNetworks": false,
+  "dedupeWindowMinutes": 1440
+}

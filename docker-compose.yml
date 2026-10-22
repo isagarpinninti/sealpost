@@ -1,0 +1,23 @@
+# docker compose up -d      then open http://localhost:4320 and sign in with SEALPOST_API_KEY
+services:
+  sealpost:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "4320:4320"
+      # To receive mail (see docs/INBOUND.md): set inbound.enabled in the config, then publish port 25 to the listener:
+      # - "25:2525"
+    environment:
+      # Required. Anything non-empty and hard to guess: openssl rand -hex 24
+      SEALPOST_API_KEY: ${SEALPOST_API_KEY:?Set SEALPOST_API_KEY (openssl rand -hex 24)}
+      # Relay password and webhook secrets are read from the environment, never stored in the config file.
+      # Name them in sealpost.config.json (passwordEnv / secretEnv) and pass them through here:
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SEALPOST_WHSEC: ${SEALPOST_WHSEC:-}
+      # Enables POST /hooks/relay/<ses|sendgrid|postmark|mailgun>?token=… for bounce and complaint feedback.
+      SEALPOST_WEBHOOK_SECRET: ${SEALPOST_WEBHOOK_SECRET:-}
+    volumes:
+      # Config, templates, keys, ledger, queue: back this directory up (it holds your DKIM private keys).
+      - sealpost-data:/project
+volumes:
+  sealpost-data:

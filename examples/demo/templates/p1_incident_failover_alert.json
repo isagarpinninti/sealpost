@@ -1,0 +1,143 @@
+{
+  "id": "p1_incident_failover_alert",
+  "name": "P1 Incident Failover Alert",
+  "version": "1.0.0",
+  "category": "Incidents",
+  "description": "An SRE P1 alert with the affected service, replication lag and a failover runbook link.",
+  "subject": "[{{severity}}] {{affectedService}} degraded: failover {{failoverState}}",
+  "preheader": "{{incidentId}} in {{region}}: replication lag {{rpoLagSeconds}} s. Runbook inside.",
+  "variables": [
+    {
+      "key": "severity",
+      "label": "Severity",
+      "type": "string",
+      "required": false,
+      "defaultValue": "P1",
+      "sampleValue": "P1"
+    },
+    {
+      "key": "incidentId",
+      "label": "Incident id",
+      "type": "string",
+      "required": true,
+      "sampleValue": "INC-4821"
+    },
+    {
+      "key": "affectedService",
+      "label": "Affected service",
+      "type": "string",
+      "required": true,
+      "sampleValue": "checkout-api"
+    },
+    {
+      "key": "region",
+      "label": "Region",
+      "type": "string",
+      "required": true,
+      "sampleValue": "eu-central-1"
+    },
+    {
+      "key": "rpoLagSeconds",
+      "label": "Replication lag (s)",
+      "type": "number",
+      "required": true,
+      "sampleValue": 12
+    },
+    {
+      "key": "failoverState",
+      "label": "Failover state",
+      "type": "string",
+      "required": false,
+      "defaultValue": "pending",
+      "sampleValue": "engaged"
+    },
+    {
+      "key": "autoFailover",
+      "label": "Automatic failover engaged",
+      "type": "boolean",
+      "required": false,
+      "sampleValue": true
+    },
+    {
+      "key": "runbookUrl",
+      "label": "Runbook link",
+      "type": "url",
+      "required": true,
+      "sampleValue": "https://runbooks.example.com/RB-17"
+    }
+  ],
+  "theme": {
+    "accentColor": "#9f1239",
+    "canvasColor": "#f1f5f9",
+    "cardColor": "#ffffff",
+    "fontFamily": "Helvetica, Arial, sans-serif"
+  },
+  "blocks": [
+    {
+      "id": "header",
+      "type": "header",
+      "brandName": "Acme SRE",
+      "badgeText": "Incident",
+      "subtitle": "On-call notification"
+    },
+    {
+      "id": "h1",
+      "type": "heading",
+      "text": "{{severity}} · {{affectedService}} is degraded"
+    },
+    {
+      "id": "alert",
+      "type": "callout",
+      "tone": "rose",
+      "title": "{{incidentId}}",
+      "text": "Replication lag in {{region}} is {{rpoLagSeconds}} seconds, above the recovery-point budget."
+    },
+    {
+      "id": "auto",
+      "showIfVariable": "autoFailover",
+      "type": "callout",
+      "tone": "emerald",
+      "title": "Automatic failover engaged",
+      "text": "Traffic is draining to the standby region. No action is required unless the drain stalls."
+    },
+    {
+      "id": "kv",
+      "type": "key_value",
+      "rows": [
+        {
+          "label": "Service",
+          "valueTemplate": "{{affectedService}}"
+        },
+        {
+          "label": "Region",
+          "valueTemplate": "{{region}}"
+        },
+        {
+          "label": "Replication lag",
+          "valueTemplate": "{{rpoLagSeconds}} s"
+        },
+        {
+          "label": "Failover",
+          "valueTemplate": "{{failoverState}}"
+        }
+      ]
+    },
+    {
+      "id": "btn",
+      "type": "button",
+      "label": "Open the failover runbook",
+      "urlTemplate": "{{runbookUrl}}",
+      "style": "primary"
+    },
+    {
+      "id": "div",
+      "type": "divider"
+    },
+    {
+      "id": "footer",
+      "type": "footer",
+      "companyAddress": "Acme Platform, Inc.\n500 Market Street, San Francisco, CA 94105",
+      "unsubscribeText": "Manage email preferences"
+    }
+  ]
+}

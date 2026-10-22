@@ -1,0 +1,11 @@
+**/node_modules
+.git
+.next
+out
+packages/*/dist
+packages/cli/studio-dist
+**/.sealpost
+**/*.tsbuildinfo
+sdks
+examples
+docs

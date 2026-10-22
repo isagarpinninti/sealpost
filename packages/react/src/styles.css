@@ -1,0 +1,40 @@
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "./base.css";
+
+@source "./**/*.{ts,tsx}";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Refined corner scale (matches the Studio default). Override on .ew-root to customise. */
+@theme {
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+}
+
+/* Monochrome neutral palette (matches the Studio). */
+@theme {
+  --color-slate-50: #fafafa;
+  --color-slate-100: #f4f4f5;
+  --color-slate-200: #e4e4e7;
+  --color-slate-300: #d4d4d8;
+  --color-slate-400: #a1a1aa;
+  --color-slate-500: #71717a;
+  --color-slate-600: #52525b;
+  --color-slate-700: #2e2e33;
+  --color-slate-800: #1f1f23;
+  --color-slate-900: #101012;
+  --color-slate-950: #09090b;
+  --color-brand-50: var(--accent-50, #f4f4f4);
+  --color-brand-100: var(--accent-100, #eaeaea);
+  --color-brand-200: var(--accent-200, #d6d6d6);
+  --color-brand-300: var(--accent-300, #e8e8e8);
+  --color-brand-400: var(--accent-400, #ffffff);
+  --color-brand-500: var(--accent-500, #9a9a9a);
+  --color-brand-600: var(--accent-600, #111111);
+  --color-brand-700: var(--accent-700, #000000);
+}

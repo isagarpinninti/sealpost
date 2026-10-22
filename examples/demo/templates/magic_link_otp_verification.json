@@ -1,0 +1,138 @@
+{
+  "id": "magic_link_otp_verification",
+  "name": "Magic Link & OTP Verification",
+  "version": "1.0.0",
+  "category": "Auth",
+  "description": "A 6-digit sign-in code, a one-click sign-in button and a device / IP security table.",
+  "subject": "{{otpCode}} is your Acme sign-in code",
+  "preheader": "Use this code to finish signing in. It expires in {{expiresMinutes}} minutes.",
+  "variables": [
+    {
+      "key": "userName",
+      "label": "Recipient name",
+      "type": "string",
+      "required": true,
+      "sampleValue": "Priya"
+    },
+    {
+      "key": "otpCode",
+      "label": "One-time code",
+      "type": "otp_code",
+      "required": true,
+      "sampleValue": "482913"
+    },
+    {
+      "key": "signInUrl",
+      "label": "Sign-in link",
+      "type": "url",
+      "required": true,
+      "sampleValue": "https://app.example.com/auth/verify?token=abc123"
+    },
+    {
+      "key": "expiresMinutes",
+      "label": "Minutes until expiry",
+      "type": "number",
+      "required": false,
+      "defaultValue": 10,
+      "sampleValue": 10
+    },
+    {
+      "key": "ipAddress",
+      "label": "Request IP",
+      "type": "string",
+      "required": false,
+      "defaultValue": "unknown",
+      "sampleValue": "203.0.113.24"
+    },
+    {
+      "key": "deviceName",
+      "label": "Device",
+      "type": "string",
+      "required": false,
+      "defaultValue": "unknown device",
+      "sampleValue": "Chrome on macOS"
+    },
+    {
+      "key": "location",
+      "label": "Approximate location",
+      "type": "string",
+      "required": false,
+      "sampleValue": "Berlin, DE"
+    }
+  ],
+  "theme": {
+    "accentColor": "#0f172a",
+    "canvasColor": "#f1f5f9",
+    "cardColor": "#ffffff",
+    "fontFamily": "Helvetica, Arial, sans-serif"
+  },
+  "blocks": [
+    {
+      "id": "header",
+      "type": "header",
+      "brandName": "Acme Platform",
+      "badgeText": "Secure",
+      "subtitle": "Transactional message"
+    },
+    {
+      "id": "h1",
+      "type": "heading",
+      "text": "Your sign-in code"
+    },
+    {
+      "id": "p1",
+      "type": "paragraph",
+      "text": "Hi {{userName}}, enter this code to finish signing in. It expires in {{expiresMinutes}} minutes."
+    },
+    {
+      "id": "otp",
+      "type": "otp_code",
+      "label": "One-time code",
+      "variableKey": "otpCode",
+      "expiryNote": "Never share this code. Acme will never ask for it."
+    },
+    {
+      "id": "btn",
+      "type": "button",
+      "label": "Sign in instantly",
+      "urlTemplate": "{{signInUrl}}",
+      "style": "primary"
+    },
+    {
+      "id": "kv",
+      "showIfVariable": "location",
+      "type": "key_value",
+      "rows": [
+        {
+          "label": "Device",
+          "valueTemplate": "{{deviceName}}"
+        },
+        {
+          "label": "IP address",
+          "valueTemplate": "{{ipAddress}}"
+        },
+        {
+          "label": "Location",
+          "valueTemplate": "{{location}}"
+        }
+      ]
+    },
+    {
+      "id": "warn",
+      "type": "callout",
+      "tone": "warn",
+      "title": "Didn't request this?",
+      "text": "Someone may have typed your email by mistake. You can safely ignore this message."
+    },
+    {
+      "id": "div",
+      "type": "divider"
+    },
+    {
+      "id": "footer",
+      "type": "footer",
+      "companyAddress": "Acme Platform, Inc.\n500 Market Street, San Francisco, CA 94105",
+      "unsubscribeText": "Manage email preferences"
+    }
+  ]
+}

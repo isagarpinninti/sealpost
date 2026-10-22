@@ -1,0 +1,64 @@
+{
+  "name": "sealpost",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "dev:server": "node packages/cli/dist/cli.js studio examples/demo --port 4320",
+    "build:packages": "npm run build -w @sealpost/core && npm run build -w @sealpost/react && npm run build -w @sealpost/sdk",
+    "build:studio": "STUDIO_EXPORT=1 next build && node scripts/copy-studio.mjs",
+    "build": "npm run build:packages && npm run build:studio && npm run build -w @sealpost/cli",
+    "test": "npm run test -w @sealpost/core && npm run test -w @sealpost/sdk && npm run test -w @sealpost/cli",
+    "typecheck": "tsc --noEmit && npm run typecheck -w @sealpost/core && npm run typecheck -w @sealpost/sdk && npm run typecheck -w @sealpost/cli",
+    "lint": "eslint .",
+    "smoke": "node scripts/smoke.mjs",
+    "ci": "npm run build:packages && npm run lint && npm run typecheck && npm test && npm run build && npm run smoke"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.60.0",
+    "next": "16.4.2",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "tailwind-merge": "^3.7.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "^16.4.2",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "description": "Self-hosted email for developers: design emails visually, catch deliverability problems before sending, and deliver with real DKIM signing over plain SMTP. A zero-dependency alternative to Resend.",
+  "author": {
+    "name": "Sagar Pinninti",
+    "url": "https://github.com/isagarpinninti"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isagarpinninti/sealpost.git"
+  },
+  "homepage": "https://github.com/isagarpinninti/sealpost#readme",
+  "bugs": {
+    "url": "https://github.com/isagarpinninti/sealpost/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "email",
+    "smtp",
+    "dkim",
+    "self-hosted",
+    "transactional-email",
+    "email-studio",
+    "deliverability",
+    "resend-alternative",
+    "typescript"
+  ]
+}

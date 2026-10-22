@@ -1,0 +1,10 @@
+{
+  "name": "sealpost/sealpost",
+  "description": "Zero-dependency PHP client for the self-hosted Sealpost email API",
+  "type": "library",
+  "license": "MIT",
+  "authors": [{ "name": "Sagar Pinninti" }],
+  "require": { "php": ">=7.4", "ext-json": "*", "ext-curl": "*" },
+  "autoload": { "psr-4": { "Sealpost\\": "src/" } },
+  "support": { "source": "https://github.com/isagarpinninti/sealpost/tree/main/sdks/php", "issues": "https://github.com/isagarpinninti/sealpost/issues" }
+}

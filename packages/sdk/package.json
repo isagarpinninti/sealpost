@@ -1,0 +1,68 @@
+{
+  "name": "@sealpost/sdk",
+  "version": "0.1.0",
+  "description": "Zero-dependency TypeScript client for the Sealpost API. Resend-style { data, error } results; works in Node 18+, browsers, Deno, Bun and edge runtimes.",
+  "license": "MIT",
+  "type": "module",
+  "author": {
+    "name": "Sagar Pinninti",
+    "url": "https://github.com/isagarpinninti"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isagarpinninti/sealpost.git",
+    "directory": "packages/sdk"
+  },
+  "homepage": "https://github.com/isagarpinninti/sealpost#readme",
+  "bugs": {
+    "url": "https://github.com/isagarpinninti/sealpost/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "email",
+    "smtp",
+    "transactional-email",
+    "sdk",
+    "api-client",
+    "sealpost",
+    "resend-alternative"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0"
+  }
+}

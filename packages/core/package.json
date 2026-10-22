@@ -1,0 +1,74 @@
+{
+  "name": "@sealpost/core",
+  "version": "0.1.0",
+  "description": "Zero-dependency email engine: block-based template compiler, pre-flight deliverability gate, MIME, RFC 6376 DKIM signing and verification, suppression handling and signed delivery receipts. Node 20+, edge runtimes and browsers.",
+  "license": "MIT",
+  "type": "module",
+  "author": {
+    "name": "Sagar Pinninti",
+    "url": "https://github.com/isagarpinninti"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isagarpinninti/sealpost.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/isagarpinninti/sealpost#readme",
+  "bugs": {
+    "url": "https://github.com/isagarpinninti/sealpost/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "email",
+    "smtp",
+    "mime",
+    "dkim",
+    "rfc6376",
+    "transactional-email",
+    "deliverability",
+    "email-templates",
+    "web-crypto"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "zod": "^3.23.0 || ^4.0.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0",
+    "zod": "^4.6.7"
+  }
+}

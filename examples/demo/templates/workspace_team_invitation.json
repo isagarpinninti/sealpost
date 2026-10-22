@@ -1,0 +1,96 @@
+{
+  "id": "workspace_team_invitation",
+  "name": "Workspace Team Invitation",
+  "version": "1.0.0",
+  "category": "Growth",
+  "description": "A role-based workspace invite with the inviter's name and an expiry notice.",
+  "subject": "{{inviterName}} invited you to {{workspaceName}}",
+  "preheader": "Join {{workspaceName}} as {{role}}. This invitation expires in {{expiresInDays}} days.",
+  "variables": [
+    {
+      "key": "inviterName",
+      "label": "Inviter",
+      "type": "string",
+      "required": true,
+      "sampleValue": "Elena Vasquez"
+    },
+    {
+      "key": "workspaceName",
+      "label": "Workspace",
+      "type": "string",
+      "required": true,
+      "sampleValue": "Platform Engineering"
+    },
+    {
+      "key": "role",
+      "label": "Role",
+      "type": "string",
+      "required": true,
+      "sampleValue": "Admin"
+    },
+    {
+      "key": "acceptUrl",
+      "label": "Accept link",
+      "type": "url",
+      "required": true,
+      "sampleValue": "https://app.example.com/invite/9f31c2"
+    },
+    {
+      "key": "expiresInDays",
+      "label": "Days until expiry",
+      "type": "number",
+      "required": false,
+      "defaultValue": 7,
+      "sampleValue": 7
+    }
+  ],
+  "theme": {
+    "accentColor": "#0f172a",
+    "canvasColor": "#f1f5f9",
+    "cardColor": "#ffffff",
+    "fontFamily": "Helvetica, Arial, sans-serif"
+  },
+  "blocks": [
+    {
+      "id": "header",
+      "type": "header",
+      "brandName": "Acme Platform",
+      "badgeText": "Secure",
+      "subtitle": "Workspace invitation"
+    },
+    {
+      "id": "h1",
+      "type": "heading",
+      "text": "You're invited to {{workspaceName}}"
+    },
+    {
+      "id": "p1",
+      "type": "paragraph",
+      "text": "{{inviterName}} has invited you to join {{workspaceName}} with the {{role}} role."
+    },
+    {
+      "id": "btn",
+      "type": "button",
+      "label": "Accept invitation",
+      "urlTemplate": "{{acceptUrl}}",
+      "style": "primary"
+    },
+    {
+      "id": "note",
+      "type": "callout",
+      "tone": "info",
+      "title": "This invitation expires",
+      "text": "It stays valid for {{expiresInDays}} days. After that, ask {{inviterName}} to send a new one."
+    },
+    {
+      "id": "div",
+      "type": "divider"
+    },
+    {
+      "id": "footer",
+      "type": "footer",
+      "companyAddress": "Acme Platform, Inc.\n500 Market Street, San Francisco, CA 94105",
+      "unsubscribeText": "Manage email preferences"
+    }
+  ]
+}

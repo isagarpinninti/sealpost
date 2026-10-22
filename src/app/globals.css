@@ -1,0 +1,120 @@
+@import "tailwindcss";
+@import "../../packages/react/src/base.css";
+
+/* Tailwind must scan the workspace packages for utility classes. */
+@source "../../packages/react/src";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  /* Inter for UI text, Geist for headings, Geist Mono for code and numbers. */
+  --font-sans: var(--font-inter), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-geist-sans), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/*
+ * Monochrome palette: pure black canvas, white type, neutral greys.
+ * `slate` is remapped so every component follows it; `brand` is the runtime accent.
+ */
+@theme {
+  --color-slate-50: #fafafa;
+  --color-slate-100: #f4f4f5;
+  --color-slate-200: #e4e4e7;
+  --color-slate-300: #d4d4d8;
+  --color-slate-400: #a1a1aa;
+  --color-slate-500: #71717a;
+  --color-slate-600: #52525b;
+  --color-slate-700: #2e2e33;
+  --color-slate-800: #1f1f23;
+  --color-slate-900: #101012;
+  --color-slate-950: #09090b;
+
+  --color-brand-50: var(--accent-50, #f4f4f4);
+  --color-brand-100: var(--accent-100, #eaeaea);
+  --color-brand-200: var(--accent-200, #d6d6d6);
+  --color-brand-300: var(--accent-300, #e8e8e8);
+  --color-brand-400: var(--accent-400, #ffffff);
+  --color-brand-500: var(--accent-500, #9a9a9a);
+  --color-brand-600: var(--accent-600, #111111);
+  --color-brand-700: var(--accent-700, #000000);
+
+  --radius-md: var(--r-md, 0.375rem);
+  --radius-lg: var(--r-lg, 0.5rem);
+  --radius-xl: var(--r-xl, 0.75rem);
+  --radius-2xl: var(--r-2xl, 1rem);
+}
+
+:root {
+  --canvas: #fafafa;
+  --ink: #101012;
+  --glow: rgba(0, 0, 0, 0);
+}
+
+.dark {
+  --canvas: #09090b;
+  --ink: #ededef;
+  --glow: rgba(255, 255, 255, 0.045);
+  color-scheme: dark;
+}
+
+html {
+  font-size: var(--ew-font-size, 16px);
+}
+
+body {
+  background:
+    radial-gradient(900px 380px at 50% -120px, var(--glow), transparent 70%),
+    var(--canvas);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--ink) 22%, transparent);
+}
+
+/* Slim, theme-aware scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(142 142 142 / 0.4) transparent;
+}
+
+@keyframes studio-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.studio-fade {
+  animation: studio-fade 180ms ease-out both;
+}
+
+/* Live-compilation pulse: a 150ms ring each time the compiled state changes. */
+@keyframes studio-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--ink) 35%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+}
+.studio-pulse {
+  animation: studio-pulse 150ms ease-out;
+}
+
+kbd {
+  font-family: var(--font-mono);
+}

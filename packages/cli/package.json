@@ -1,0 +1,67 @@
+{
+  "name": "@sealpost/cli",
+  "version": "0.1.0",
+  "description": "Sealpost command line and server: send DKIM-signed email over raw SMTP with failover and retries, receive replies and bounces, run broadcasts and webhooks, and open a visual email studio. No nodemailer.",
+  "license": "MIT",
+  "type": "module",
+  "author": {
+    "name": "Sagar Pinninti",
+    "url": "https://github.com/isagarpinninti"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isagarpinninti/sealpost.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://github.com/isagarpinninti/sealpost#readme",
+  "bugs": {
+    "url": "https://github.com/isagarpinninti/sealpost/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "email",
+    "smtp",
+    "cli",
+    "dkim",
+    "self-hosted",
+    "mailer",
+    "inbound-email",
+    "webhooks",
+    "mcp",
+    "resend-alternative"
+  ],
+  "bin": {
+    "sealpost": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "studio-dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@sealpost/core": "^0.1.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/pg": "^8.23.1",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0"
+  },
+  "optionalDependencies": {
+    "pg": "^8.23.1"
+  }
+}
